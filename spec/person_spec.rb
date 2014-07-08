@@ -36,7 +36,7 @@ describe Person do
 	it 'Return a bike to a station' do
 		person = Person.new
 		station = double :dock_station
-		expect(station).to receive(:receive_bike)
+		expect(station).to receive(:receive)
 		person.return_a_bike_to(station)
 	end
 
@@ -45,7 +45,7 @@ describe Person do
 		bike = double :bike
 		person = Person.new(bike)
 
-		expect(station).to receive(:receive_bike).with(bike).and_return(nil)
+		expect(station).to receive(:receive).with(bike).and_return(nil)
 		person.return_a_bike_to(station)
 		expect(person.has_bike?).to eq false
 	end
