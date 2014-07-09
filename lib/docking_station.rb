@@ -17,6 +17,7 @@ class DockingStation
 
 	def receive(bike)
 		bikes << bike
+		nil
 	end
 
 	def release_bike
