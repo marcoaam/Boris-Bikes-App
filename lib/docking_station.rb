@@ -1,10 +1,10 @@
-require 'bike'
 class DockingStation
 
 	DEFAULT_CAPACITY = 10
 
 	def initialize(options = {})
 		@capacity = options.fetch(:capacity, DEFAULT_CAPACITY)
+		@bikes ||= []
 	end
 
 	def capacity
@@ -12,7 +12,7 @@ class DockingStation
 	end
 
 	def bikes
-		@bikes ||= []
+		@bikes
 	end
 
 	def receive(bike)
@@ -20,7 +20,7 @@ class DockingStation
 	end
 
 	def release_bike
-		bikes.find { |bike| !bike.broken? }
+			bikes.delete(bikes.find {|bike| !bike.broken?})
 	end
 
 end

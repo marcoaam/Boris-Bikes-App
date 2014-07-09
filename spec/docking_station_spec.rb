@@ -24,11 +24,26 @@ describe DockingStation do
 		expect(station.bikes).to eq [bike]
 	end
 
-	it 'Can release a bike from a person' do
+	it 'Can knows the number of bikes in the container' do
 		station = DockingStation.new
 		bike = double :bike
-		bikes = double :bikes
-
-		expect(station.release_bike)
+		station.receive(bike)
+		expect(station.bikes.count).to eq 1
 	end
+
+	it 'Can release a bike' do
+		station = DockingStation.new
+		bike = double :bike, broken?: false
+		station.receive(bike)
+		expect(station.release_bike).to eq bike
+	end
+
+	it 'Doesnt have the bike after releasing it' do
+		station = DockingStation.new
+		bike = double :bike, broken?: false
+		station.receive(bike)
+		station.release_bike
+		expect(station.bikes).to eq []
+	end
+	
 end	
