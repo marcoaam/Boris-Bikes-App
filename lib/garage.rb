@@ -11,8 +11,9 @@ class Garage
 		@bikes ||= []
 	end
 
-	# def fixed_bikes
-	# 	bikes.map { |bike| bike.fix! }
-	# end
+	def fixed_bikes
+		bikes.each { |bike| bike.fix! }
+		bikes.collect { |bike| bikes.delete(bike) }
+	end
 
 end

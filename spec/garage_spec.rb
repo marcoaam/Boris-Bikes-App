@@ -20,32 +20,32 @@ describe Garage do
 		expect(garage.bikes).to eq []
 	end
 
-	# it 'Can release all fixed bikes' do
-	# 	garage = Garage.new
-	# 	bike = double :bike
-	# 	garage.receive(bike)
-	# 	expect(bike).to receive(:fix!)
-	# 	garage.fixed_bikes
-	# end
+	it 'Can release all fixed bikes' do
+		garage = Garage.new
+		bike = double :bike
+		garage.receive(bike)
+		expect(bike).to receive(:fix!)
+		garage.fixed_bikes
+	end
 
-	# it 'Can release all fixed bikes' do
-	# 	garage = Garage.new
-	# 	bike = double :bike, broken?: true
-	# 	garage.receive(bike)
-	# 	allow(bike).to receive(:fix!)
+	it 'Can release all fixed bikes' do
+		garage = Garage.new
+		bike = double :bike, broken?: true
+		allow(bike).to receive(:fix!)
+		garage.receive(bike)
 
-	# 	expect(garage.fixed_bikes).to eq [bike]
-	# end
+		expect(garage.fixed_bikes).to eq [bike]
+	end
 
 
-	# it 'Can release all fixed bikes' do
-	# 	garage = Garage.new
-	# 	bike = double :bike, broken?: true
-	# 	garage.receive(bike)
-	# 	allow(bike).to receive(:fix!)
-	# 	garage.fixed_bikes
+	it 'Can release all fixed bikes' do
+		garage = Garage.new
+		bike = double :bike, broken?: true
+		garage.receive(bike)
+		allow(bike).to receive(:fix!)
+		garage.fixed_bikes
 
-	# 	expect(garage.bikes).to eq []
-	# end
+		expect(garage.bikes).to eq []
+	end
 
 end

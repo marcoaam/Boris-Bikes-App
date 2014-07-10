@@ -11,6 +11,7 @@ module BikeContainer
 	end
 
 	def receive(bike)
+		raise "Bike storage full" if full?
 		bikes << bike
 		nil
 	end
@@ -25,6 +26,10 @@ module BikeContainer
 
 	def release_broken_bikes
 		bikes.map { |bike| bikes.delete(bike) if bike.broken? }
+	end
+
+	def receive_broken_bikes_from(container)
+		container.release_broken_bikes.each { |bike| receive(bike) }
 	end
 
 end

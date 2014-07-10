@@ -41,9 +41,25 @@ shared_examples_for 'a bike container' do
 		expect(container.bikes).to eq [bike, bike, bike]
 	end
 
-	it 'Releases all of the broken bikes' do
+		it 'can receive broken bikes from a holder' do
+		bike = double :bike, broken?: true
+		holder = double :container, release_broken_bikes: [bike]
+
+		container.receive_broken_bikes_from(holder)
+	end
+
+	it 'has the bikes stored after receiving the bikes from station' do
+		bike = double :bike, broken?: true
+		holder = double :container, release_broken_bikes: [bike]
+		
+		container.receive_broken_bikes_from(holder)
+		expect(container.bikes).to eq [bike]
+	end
+
+		it 'Releases all of the broken bikes' do
 		broken_bike = double :bike, broken?: true
 		working_bike = double :bike, broken?: false
+		garage = double :garage
 		container.receive(broken_bike)
 		container.receive(working_bike)
 
@@ -53,11 +69,20 @@ shared_examples_for 'a bike container' do
 	it 'Doesnt have broken bikes after releasing them' do
 		broken_bike = double :bike, broken?: true
 		working_bike = double :bike, broken?: false
+		garage = double :garage
 		container.receive(broken_bike)
 		container.receive(working_bike)
+
 		container.release_broken_bikes
 
 		expect(container.bikes).to eq [working_bike]
+	end
+
+	it 'Should raise a error trying adding a bike when full' do
+		working_bike = double :bike, working?: true
+		(container.capacity).times { container.bikes << working_bike}
+
+		expect{container.receive(working_bike)}.to raise_error(RuntimeError)
 	end
 
 end
