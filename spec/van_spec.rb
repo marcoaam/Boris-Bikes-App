@@ -1,6 +1,10 @@
 require 'van'
+require_relative 'bike_container_spec'
 
 describe Van do
+
+	it_behaves_like 'a bike container'
+
 	it 'has a default capacity of 5 at the beginning' do
 		van = Van.new
 		expect(van.capacity).to eq 5
@@ -9,11 +13,6 @@ describe Van do
 	it 'can be created a custom capacity' do
 		van = Van.new(capacity: 10)
 		expect(van.capacity).to eq 10
-	end
-
-	it 'has a bike container empty at the beginning' do
-		van = Van.new
-		expect(van.bikes).to eq []
 	end
 
 	it 'can receive broken bikes from a station' do
@@ -56,18 +55,22 @@ describe Van do
 		expect(van.bikes).to eq []
 	end
 
-	it 'is not full when created' do
+	it 'Can request fixed bikes from the garage' do
 		van = Van.new
-		bike = double :bike
+		bike = double :bike, broken?: false
+		garage = double :garage, fixed_bikes: [bike]
 
-		expect(van.full?).to be false
+		expect(garage).to receive(:fixed_bikes).and_return [bike]
+		van.request_fixed_bikes_from(garage)
 	end
 
-	it 'is full after having an certain amount of bikes' do
-		van = Van.new(capacity: 20)
-		bike = double :bike
-		(van.capacity).times { van.bikes  << bike }
+	it 'Have the fixed bikes inside the container after requesting them' do
+		van = Van.new
+		bike = double :bike, broken?: false
+		garage = double :garage, fixed_bikes: [bike]
 
-		expect(van.full?).to be true
+		van.request_fixed_bikes_from(garage)
+		expect(van.bikes).to eq [bike]
 	end
+
 end

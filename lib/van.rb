@@ -1,4 +1,8 @@
+require_relative 'bike_container'
+
 class Van
+
+	include BikeContainer
 
 	DEFAULT_CAPACITY = 5
 
@@ -7,24 +11,16 @@ class Van
 		@bikes ||= []
 	end
 
-	def capacity
-		@capacity ||= DEFAULT_CAPACITY
-	end
-
-	def bikes
-		@bikes
-	end
-
 	def receive_broken_bikes_from(station)
-		station.release_broken_bikes.each { |bike| bikes << bike }
+		station.release_broken_bikes.each { |bike| receive(bike) }
 	end
 
-	def release_working_bikes_to(station)
-		station.receive_many_bikes(bikes.map { |bike| bikes.delete(bike) if !bike.broken? })
+	def release_working_bikes_to(container)
+		container.receive_many_bikes(bikes.map { |bike| bikes.delete(bike) if !bike.broken? })
 	end
 
-	def full?
-		bikes.count == capacity
+	def request_fixed_bikes_from(garage)
+		receive_many_bikes_from(garage.fixed_bikes)
 	end
 
 end
