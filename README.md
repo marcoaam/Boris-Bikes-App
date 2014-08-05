@@ -1,4 +1,4 @@
-boris-bikes-london-tdd
+Boris Bikes
 ======================
 
-New Version of Boris Bikes with the London TDD style
+Week 3 at Makers Academy. This programme was build using TDD best practices and SOLID principles.
