@@ -3,10 +3,12 @@ require_relative 'bike_container_spec'
 
 describe DockingStation do
 
+	let(:station) { DockingStation.new }
+	let(:bike) { bike = double :bike, broken?: false}
+
 	it_behaves_like 'a bike container'
 
 	it 'has a docking station with a default capacity of ten' do
-		station = DockingStation.new
 		expect(station.capacity).to eq 10
 	end
 
@@ -16,15 +18,11 @@ describe DockingStation do
 	end
 
 	it 'Can release the first working bike it has' do
-		station = DockingStation.new
-		bike = double :bike, broken?: false
 		station.receive(bike)
 		expect(station.release_bike).to eq bike
 	end
 
 	it 'Doesnt have the working bike after releasing it' do
-		station = DockingStation.new
-		bike = double :bike, broken?: false
 		station.receive(bike)
 		station.release_bike
 		expect(station.bikes).to eq []

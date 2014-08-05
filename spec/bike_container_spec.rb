@@ -21,8 +21,6 @@ shared_examples_for 'a bike container' do
 	end
 
 	it 'Is not full when created' do
-		bike = double :bike
-
 		expect(container.full?).to be false
 	end
 
@@ -59,7 +57,6 @@ shared_examples_for 'a bike container' do
 		it 'Releases all of the broken bikes' do
 		broken_bike = double :bike, broken?: true
 		working_bike = double :bike, broken?: false
-		garage = double :garage
 		container.receive(broken_bike)
 		container.receive(working_bike)
 
@@ -69,7 +66,6 @@ shared_examples_for 'a bike container' do
 	it 'Doesnt have broken bikes after releasing them' do
 		broken_bike = double :bike, broken?: true
 		working_bike = double :bike, broken?: false
-		garage = double :garage
 		container.receive(broken_bike)
 		container.receive(working_bike)
 

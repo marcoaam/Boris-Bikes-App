@@ -21,7 +21,7 @@ describe Van do
 		station = double :station
 		van.bikes << bike
 
-		expect(station).to receive(:receive_many_bikes).with([bike])
+		expect(station).to receive(:receive_many_bikes_from).with([bike])
 
 		van.release_working_bikes_to(station)
 	end
@@ -31,7 +31,7 @@ describe Van do
 		bike = double :bike, broken?: false
 		station = double :station
 		van.bikes << bike
-		allow(station).to receive(:receive_many_bikes).with([bike])
+		allow(station).to receive(:receive_many_bikes_from).with([bike])
 
 		van.release_working_bikes_to(station)
 
